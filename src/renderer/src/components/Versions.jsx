@@ -1,27 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
+import versionData from './version.json';
 
 const Versions = () => {
-  const [latestVersion, setLatestVersion] = useState(null);
-  const [currentVersion] = useState("1.0.0"); // Set your current version here
+  const [version, setVersion] = useState('');
 
   useEffect(() => {
-    // Fetch the latest release from GitHub
-    fetch("https://api.github.com/repos/YOUR_GITHUB_USERNAME/YOUR_REPO/releases/latest")
-      .then((response) => response.json())
-      .then((data) => {
-        setLatestVersion(data.tag_name); // GitHub version name
-      })
-      .catch((error) => console.error("Error fetching version:", error));
+    setVersion(versionData.version);
   }, []);
 
   return (
     <div>
-      <h3>Version: {currentVersion}</h3>
-      {latestVersion && latestVersion !== currentVersion && (
-        <div className="update-notification">
-          <p>A new version ({latestVersion}) is available! Please update.</p>
-        </div>
-      )}
+      <h1>Version: {version}</h1>
     </div>
   );
 };
